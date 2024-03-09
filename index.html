@@ -1,7 +1,402 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <title>Complete Streets in Asheville</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <style>
+        .mapboxgl-popup {
+            max-width: 400px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaGJyYXNoIiwiYSI6ImNsMW81dDZqYzAzcDUzanVpM3d5ZWNmeXQifQ.8_kvs150eG-1MfKwFWTu6g';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/dark-v11',
+            center: [-82.552085,35.59518673],
+            zoom: 13.5
+        });
+
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
+        // Create a popup, but don't add it to the map yet.
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+
+        const yellowGeojson = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'coordinates': [
+                            [-82.5500179913527, 35.59587967504753],
+                            [-82.55426768943698, 35.595041946871845],
+                            [-82.55499743557277, 35.59440491853705],
+                            [-82.55259356594912, 35.59484123986121]
+                        ],
+                        'type': 'LineString'
+                    }
+                },
+            ]
+        };
+
+        
+        const blueGeojson = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'coordinates': [
+                        [
+            -82.55794631133028,
+            35.63494182494894
+          ],
+          [
+            -82.55678759703596,
+            35.634593031615054
+          ],
+          [
+            -82.55279647002186,
+            35.6300236983688
+          ],
+          [
+            -82.55275355467806,
+            35.62793078676967
+          ],
+          [
+            -82.55421267638177,
+            35.624930851262334
+          ],
+          [
+            -82.55464182982391,
+            35.623430841297576
+          ],
+          [
+            -82.55412684569347,
+            35.617570067515956
+          ],
+          [
+            -82.55464182982391,
+            35.616069919475734
+          ],
+          [
+            -82.55494223723393,
+            35.6152326153114
+          ]
+                        ],
+                        'type': 'LineString'
+                    }
+                },
+            ]
+        };
+
+        const greenGeojson = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'coordinates': [
+                            [-82.54998188944022, 35.595874915133734],
+                            [-82.54727822275328, 35.59707882834593],
+                            [-82.54611950845894, 35.59753247210526]
+                        ],
+                        'type': 'LineString'
+                    }
+                },
+                {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'coordinates': [
+                            [-82.55279284448777, 35.59543871022508],
+                            [-82.5541875931754, 35.59910275757221]
+                        ],
+                        'type': 'LineString'
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "coordinates": [
+                            [-82.55099034152906, 35.59116382384141],
+                            [-82.55225634418458, 35.591268518827164],
+                            [-82.55384421192105, 35.59097188267876],
+                            [-82.55504584155986, 35.591076577915516],
+                            [-82.5564405902475, 35.59118127301531],
+                            [-82.56210541568699, 35.59116382384141],
+                            [-82.56373619876794, 35.58922694190994],
+                            [-82.56418680988234, 35.58786586170855],
+                            [-82.56448721729238, 35.58756921295259],
+                            [-82.56643986545494, 35.586941011959226],
+                            [-82.5675370342316, 35.586317788445555]
+                        ],
+                        "type": "LineString"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "coordinates": [
+                            [-82.55638989493315, 35.59117039279242],
+                            [-82.55648436182327, 35.58938815884186],
+                            [-82.55629542804309, 35.587037393041356],
+                            [-82.55621985453108, 35.585454812486276],
+                            [-82.55599313399465, 35.58487093991741]
+                        ],
+                        "type": "LineString"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "coordinates": [
+                            [-82.54393914349637, 35.598135666902934],
+                            [-82.54387910367413, 35.59745219011046],
+                            [-82.54405922314136, 35.596231681319935],
+                            [-82.54357890456241, 35.59420559563793],
+                            [-82.54366896429603, 35.59357090764615],
+                            [-82.54441946207577, 35.59283856909586],
+                            [-82.5447196611875, 35.59222828185193],
+                            [-82.5451099200328, 35.591520342821255],
+                            [-82.54556021870083, 35.591178576909954],
+                            [-82.54766161248374, 35.590641513244876],
+                            [-82.54796181159593, 35.59051945281867],
+                            [-82.54880236910881, 35.58978708635294],
+                            [-82.54946280715495, 35.58954296270893],
+                            [-82.54994312573432, 35.58954296270893]
+                        ],
+                        "type": "LineString"
+                    }
+                },
+            ]
+        };
+
+        const purpleGeojson = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'coordinates': [
+                           [-82.56209048832642, 35.592960333364616],
+                           [-82.5550385151534, 35.594375791068146]
+                        ],
+                        'type': 'LineString'
+                    }
+                },
+
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "coordinates": [
+                            [
+                                -82.54604502600526,
+                                35.597533256487296
+                            ],
+                            [
+                                -82.54298768320544,
+                                35.59844055221272
+                            ],
+                            [
+                                -82.54260830490173,
+                                35.59860386435079
+                            ],
+                            [
+                                -82.54187186466528,
+                                35.59920267267337
+                            ],
+                            [
+                                -82.54126932265369,
+                                35.59938412885674
+                            ],
+                            [
+                                -82.54093457709116,
+                                35.59938412885674
+                            ],
+                            [
+                                -82.53618119011055,
+                                35.59778730032744
+                            ],
+                            [
+                                -82.53562328084078,
+                                35.59749696444412
+                            ]
+                        ],
+                        "type": "LineString"
+                    }
+               },
+
+               {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          [-82.55160778472185, 35.59503796369559],
+          [-82.5506691587939, 35.591548768686394], 
+          [-82.55169717766788, 35.58845925032878],
+          [-82.55174187414022, 35.58620564409455],
+          [-82.55125021293975, 35.58449722290723],
+          [-82.5513843023581, 35.583152269947746],
+          [-82.55071385526688, 35.58068040560134],
+          [-82.55013280112037, 35.57929903641234],
+          [-82.54821085279143, 35.57777223222105]
+        ],
+        "type": "LineString"
+      }
+    }
+            ]
+        };
+
+
+        map.on('load', () => {
+            // Add GeoJSON line
+            map.addSource('yellowLine', {
+                type: 'geojson',
+                data: yellowGeojson
+            });
+
+            // Add additional GeoJSON lines
+            map.addSource('blueLine', {
+                type: 'geojson',
+                data: blueGeojson
+            });
+
+            // Add additional GeoJSON lines
+            map.addSource('greenLine', {
+                type: 'geojson',
+                data: greenGeojson
+            });
+
+            // Add additional GeoJSON lines
+            map.addSource('purpleLine', {
+                type: 'geojson',
+                data: purpleGeojson
+            });
+
+            // add a line layer for yellow GeoJSON
+            map.addLayer({
+                type: 'line',
+                source: 'yellowLine',
+                id: 'yellow-line',
+                paint: {
+                    'line-color': 'yellow',
+                    'line-width': 6,
+                    'line-opacity': 0.8
+                }
+            });
+
+            map.addLayer({
+                type: 'line',
+                source: 'blueLine',
+                id: 'blue-line',
+                paint: {
+                    'line-color': 'blue',
+                    'line-width': 6,
+                    'line-opacity': 0.4
+                }
+            });
+
+            // add a line layer for green GeoJSON
+            map.addLayer({
+                type: 'line',
+                source: 'greenLine',
+                id: 'green-line',
+                paint: {
+                    'line-color': 'green',
+                    'line-width': 6
+                }
+            });
+
+        // add a line layer for green GeoJSON
+            map.addLayer({
+                type: 'line',
+                source: 'purpleLine',
+                id: 'purple-line',
+                paint: {
+                    'line-color': 'purple',
+                    'line-width': 6
+                }
+            });
+
+            map.addSource('agj22', {
+                type: 'geojson',
+                data: 'csdata/allgj.geojson'
+            });
+
+            map.addLayer({
+                id: 'points',
+                type: 'circle',
+                source: 'agj22',
+                paint: {
+                    'circle-radius': 6,
+                    'circle-color': [
+                        'match',
+                        ['get', 'description'],
+                        'Eating places', '#DC143C',
+                        'Drinking places', '#4D4DFF',
+                        'Women\'s clothing stores', '#A020F0',
+                        'Gift, novelty, and souvenir shop', '#008080',
+                        'Beauty shops', '#39FF14',
+                        'Hotels and motels', '#F7E7CE',
+                        'Amusement and recreation, nec', '#FF00FF',
+                        'Museums and art galleries', '#FFBF00',
+                        'Retail bakeries', '#FF69B4',
+                        'Tour operators', '#4CBB17',
+                        'Liquor stores', '#0ABAB5',
+                        'Tobacco stores and stands', '#964B00',
+                        '#555D50'
+                    ],
+                    'circle-stroke-width': 1,
+                    'circle-stroke-color': '#000000'
+                }
+            });
+
+            map.on('mouseenter', 'points', (e) => {
+                map.getCanvas().style.cursor = 'pointer';
+
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const companyname = e.features[0].properties.companyname;
+                const yearstarted = e.features[0].properties.yearstarted;
+
+                const popupContent = `<strong>${companyname}</strong><br>Year Started: ${yearstarted}`;
+
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                popup.setLngLat(coordinates).setHTML(popupContent).addTo(map);
+            });
+
+            map.on('mouseleave', 'points', () => {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+        });
+    </script>
 </body>
 </html>
