@@ -20,15 +20,11 @@
     </style>
     <div id="map"></div>
     <script>
-        // Assuming you are using Android resources to access the token
-        const mapboxAccessToken = getString(R.string.mapbox_access_token);
-    
-        mapboxgl.accessToken = mapboxAccessToken;
-    
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaGJyYXNoIiwiYSI6ImNsMW81dDZqYzAzcDUzanVpM3d5ZWNmeXQifQ.8_kvs150eG-1MfKwFWTu6g';
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v11',
-            center: [-82.552085, 35.59518673],
+            center: [-82.552085,35.59518673],
             zoom: 15
         });
 
