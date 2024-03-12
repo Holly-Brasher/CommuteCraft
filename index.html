@@ -7,29 +7,59 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
     <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(228, 228, 215);
+            font-family: Palatino, serif;;
+        }
+        #map-container {
+            position: relative;
+            width: 60vw; /* Set the map container width to 80% of the viewport width */
+            height: 90vh; /* Set the map container height to 60% of the viewport height */
+            margin: 20px auto; /* Add some margin for centering */
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #header {
+            text-align: center;
+            font-size: 32px;
+            margin: 10px 0;
+        }
+        #description {
+            text-align: center;
+            margin: 10px auto;
+            width: 60vw; /* Match the width of the map */
+            font-size: 18px; /* Increase the font size */
+        }
     </style>
 </head>
 <body>
-    <style>
-        .mapboxgl-popup {
-            max-width: 400px;
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-        }
-    </style>
-    <div id="map"></div>
+    <div id="header">Complete Streets in Asheville</div>
+    <div id="description">
+        <p>There are various types of complete streets in Asheville, each designed to accommodate a mix of transportation modes, enhance safety, and promote a vibrant community. Explore the map to discover the diversity of streets and the amenities they offer.</p>
+    </div>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiaGJyYXNoIiwiYSI6ImNsMW81dDZqYzAzcDUzanVpM3d5ZWNmeXQifQ.8_kvs150eG-1MfKwFWTu6g';
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v11',
-            center: [-82.552085,35.59518673],
-            zoom: 13.5
+            center: [-82.553587,35.601754],
+            zoom: 13
         });
 
         // Add zoom and rotation controls to the map.
-        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.NavigationControl({ showCompass: false }));
 
         // Create a popup, but don't add it to the map yet.
         const popup = new mapboxgl.Popup({
